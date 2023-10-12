@@ -2,7 +2,7 @@ function stringLength (line, maxLength) {
   return (line.length <= maxLength);
 }
 
-stringLength();
+stringLength('проверяемая строка', 20);
 
 function palindrome (originalLine) {
   let normalLine = originalLine.replaceAll(' ','');
@@ -15,7 +15,7 @@ function palindrome (originalLine) {
   return normalLine === newLine;
 }
 
-palindrome();
+palindrome('топот');
 
 function number (line) {
   line = line.toString();
@@ -34,4 +34,4 @@ function number (line) {
   return Number(newNumber);
 }
 
-number();
+number('Лёша на полке клопа нашёл ');
