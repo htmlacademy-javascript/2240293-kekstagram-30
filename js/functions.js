@@ -35,3 +35,16 @@ function number (line) {
 }
 
 number('Лёша на полке клопа нашёл ');
+
+function isWorkingHours (gettingStarted, endWork, beginningMeeting, durationMeeting) {
+  const arrayGettingStarted = gettingStarted.split(':');
+  const arrayBeginningMeeting = beginningMeeting.split(':');
+  if (Number(arrayGettingStarted[0]) <= Number(arrayBeginningMeeting[0])) {
+    const endMeeting = `${parseInt(arrayBeginningMeeting[0], 10) + Math.floor (durationMeeting / 60)}:${parseInt(arrayBeginningMeeting[1], 10) + durationMeeting % 60}`;
+    return endMeeting <= endWork;
+  } else {
+    return false;
+  }
+}
+
+window.console.log(isWorkingHours('8:00', '17:30', '08:00', 900));

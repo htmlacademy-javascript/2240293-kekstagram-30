@@ -1,4 +1,4 @@
-import {getRandomInteger, createSequenceNamber} from './util.js';
+import {getRandomInteger, createSequenceNumber} from './util.js';
 
 const NAMES = [
   'Азат',
@@ -52,8 +52,8 @@ const TEXT_COMMENT = [
 
 const CARDS_PHOTO_COUNT = 25;
 
-const getIdComment = createSequenceNamber();
-const getSequenceNamber = createSequenceNamber();
+const getIdComment = createSequenceNumber();
+const getSequenceNumber = createSequenceNumber();
 
 const createComment = () => {
   const idComment = getIdComment();
@@ -67,11 +67,11 @@ const createComment = () => {
 };
 
 const createPhoto = () => {
-  const sequenceNamber = getSequenceNamber();
+  const sequenceNumber = getSequenceNumber();
 
   return {
-    id: sequenceNamber,
-    url: `photos/${sequenceNamber}.jpg`,
+    id: sequenceNumber,
+    url: `photos/${sequenceNumber}.jpg`,
     description: PHOTO_CAPTION[getRandomInteger(0, PHOTO_CAPTION.length - 1)],
     likes: getRandomInteger(15, 250),
     comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
