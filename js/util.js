@@ -6,7 +6,7 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-function createSequenceNamber () {
+function createSequenceNumber () {
   const previousValues = [];
 
   return function () {
@@ -20,4 +20,4 @@ function createSequenceNamber () {
     return currentValue;
   };
 }
-export {getRandomInteger, createSequenceNamber};
+export {getRandomInteger, createSequenceNumber};
