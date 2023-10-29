@@ -50,8 +50,6 @@ const TEXT_COMMENT = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const CARDS_PHOTO_COUNT = 25;
-
 const getIdComment = createSequenceNumber();
 const getSequenceNumber = createSequenceNumber();
 
@@ -78,6 +76,6 @@ const createPhoto = () => {
   };
 };
 
-const сardsPhoto = () => Array.from({length: CARDS_PHOTO_COUNT}, createPhoto);
+const сardsPhoto = (quantity) => Array.from({length: quantity}, createPhoto);
 
 export {сardsPhoto};
