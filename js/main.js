@@ -1,3 +1,3 @@
-import {сardsPhoto} from'./data.js';
-
-window.console.log(сardsPhoto());
+import {data} from'./data.js';
+import {renderPictures} from'./miniature.js';
+renderPictures(data);
