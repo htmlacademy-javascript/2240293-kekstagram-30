@@ -78,4 +78,6 @@ const createPhoto = () => {
 
 const сardsPhoto = (quantity) => Array.from({length: quantity}, createPhoto);
 
-export {сardsPhoto};
+const data = сardsPhoto(25);
+
+export {data};
