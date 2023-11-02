@@ -20,4 +20,6 @@ function createSequenceNumber () {
     return currentValue;
   };
 }
-export {getRandomInteger, createSequenceNumber};
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+export {getRandomInteger, createSequenceNumber, isEscapeKey};
