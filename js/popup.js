@@ -56,7 +56,7 @@ const fillBigPicture = (pictureData) => {
   bigPicture.querySelector('.social__comment-total-count').textContent = pictureData.comments.length;
 };
 
-const renderCommentsBigPicture2 = () => {
+const renderCommentsBigPicture = () => {
   const maxCounter = counterDisplayedComments + 5;
   const elemetComment = arreyComents.slice(counterDisplayedComments, maxCounter);
   elemetComment.forEach((item, i) => {
@@ -69,23 +69,23 @@ const renderCommentsBigPicture2 = () => {
   commentCountDisplayed.textContent = counterDisplayedComments;
   commentCountALL.textContent = arreyComents.length;
 };
+//2й вариант
+// const renderCommentsBigPicture2 = () => {
+//   let localCommentsCount;
+//   if (arreyComents.length - counterDisplayedComments <= 5) {
+//     localCommentsCount = arreyComents.length;
+//     commentsLoader.classList.add('hidden');
+//   } else {
+//     localCommentsCount = counterDisplayedComments + 5;
+//   }
 
-const renderCommentsBigPicture3 = () => {
-  let localCommentsCount;
-  if (arreyComents.length - counterDisplayedComments <= 5) {
-    localCommentsCount = arreyComents.length;
-    commentsLoader.classList.add('hidden');
-  } else {
-    localCommentsCount = counterDisplayedComments + 5;
-  }
-
-  for (let i = counterDisplayedComments; i < localCommentsCount; i++) {
-    socialComments.append(arreyComents[counterDisplayedComments]);
-    counterDisplayedComments += 1;
-  }
-  commentCountDisplayed.textContent = counterDisplayedComments;
-  commentCountALL.textContent = arreyComents.length;
-};
+//   for (let i = counterDisplayedComments; i < localCommentsCount; i++) {
+//     socialComments.append(arreyComents[counterDisplayedComments]);
+//     counterDisplayedComments += 1;
+//   }
+//   commentCountDisplayed.textContent = counterDisplayedComments;
+//   commentCountALL.textContent = arreyComents.length;
+// };
 
 const onPicturesContainerClick = (event) =>{
   const targetId = event.target.parentNode.id;
@@ -95,11 +95,11 @@ const onPicturesContainerClick = (event) =>{
   }
   fillBigPicture(pictureData);
   creatingCommentElements(pictureData);
-  renderCommentsBigPicture2();
+  renderCommentsBigPicture();
 };
 
 picturesContainer.addEventListener('click', onPicturesContainerClick);
 
 bigPictureBtnClose.addEventListener('click', onbigPictureBtnCloseClick);
 
-commentsLoader.addEventListener('click', renderCommentsBigPicture3);
+commentsLoader.addEventListener('click', renderCommentsBigPicture);
