@@ -66,7 +66,6 @@ const createComment = () => {
 
 const createPhoto = () => {
   const sequenceNumber = getSequenceNumber();
-
   return {
     id: sequenceNumber,
     url: `photos/${sequenceNumber}.jpg`,
