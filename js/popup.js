@@ -75,10 +75,10 @@ const onPicturesContainerClick = (event) =>{
   const pictureData = data.find((element) => element.id === Number(targetId));
   if (event.target.classList[0] === 'picture__img'){
     openBigPicture();
+    fillBigPicture(pictureData);
+    creatingCommentElements(pictureData);
+    renderCommentsBigPicture();
   }
-  fillBigPicture(pictureData);
-  creatingCommentElements(pictureData);
-  renderCommentsBigPicture();
 };
 
 picturesContainer.addEventListener('click', onPicturesContainerClick);
