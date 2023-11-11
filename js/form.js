@@ -6,6 +6,8 @@ const modalImageEditorBtnClose = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
 const comment = form.querySelector('.text__description');
 const hashtags = form.querySelector('.text__hashtags');
+const imgPreview = document.querySelector('.img-upload__preview');
+const effectLevelSliderContainer = document.querySelector('.img-upload__effect-level');
 const hashtag = /^#[a-zA-Zа-яёА-ЯЁ0-9]{1,19}$/;
 
 const activeElement = () => document.activeElement === comment ||
@@ -17,12 +19,14 @@ const onDocumentKeydown = (evt) => {
     modalImageEditor.classList.add('hidden');
     inputUpload.value = null;
     form.reset();
+    imgPreview.style = 'none';
   }
 };
 
 inputUpload.onchange = () => {
   modalImageEditor.classList.remove('hidden');
   body.classList.add('modal-open');
+  effectLevelSliderContainer.classList.add('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
@@ -31,6 +35,7 @@ const onModalImageEditorBtnCloseClick = () => {
   body.classList.remove('modal-open');
   inputUpload.value = null;
   form.reset();
+  imgPreview.style = 'none';
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
