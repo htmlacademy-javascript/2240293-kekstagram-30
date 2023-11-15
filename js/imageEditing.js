@@ -79,6 +79,7 @@ noUiSlider.create(effectLevelSlider, {
 
 const createEffectValue = ({filter}) =>{
   let effectValue = effectLevelValue.value;
+
   if (filter === 'invert'){
     effectValue = `${effectLevelValue.value}%`;
   } else if(filter === 'blur'){
@@ -96,6 +97,7 @@ const editingImgPreview = (filter) => {
   if (!filter) {
     return;
   }
+
   imgPreview.style.filter = `${filter.filter}(${createEffectValue(filter)})`;
 };
 
@@ -112,7 +114,9 @@ const onEffectClick = (element) => {
   } else {
     effectLevelSliderContainer.classList.remove('hidden');
   }
+
   activeFilter = createEfectSetting(element);
+
   effectLevelSlider.noUiSlider.updateOptions({
     range: {
       min: Number(activeFilter.min),
@@ -121,6 +125,7 @@ const onEffectClick = (element) => {
     step: Number(activeFilter.step),
     start: Number(activeFilter.max)
   });
+
   editingImgPreview(activeFilter);
 };
 

@@ -1,8 +1,8 @@
 import {isEscapeKey} from './util.js';
-import {data} from'./data.js';
-const bigPicture = document.querySelector('.big-picture'); //Окно фотографии
-const picturesContainer = document.querySelector('.pictures'); //Миниатюра фотографий
-const bigPictureBtnClose = document.querySelector('.big-picture__cancel'); //Кнопка закрытия окна фотографии
+import {arrayPhotos} from './miniature.js';
+const bigPicture = document.querySelector('.big-picture');
+const picturesContainer = document.querySelector('.pictures');
+const bigPictureBtnClose = document.querySelector('.big-picture__cancel');
 const body = document.querySelector('body');
 const commentCountDisplayed = document.querySelector('.social__comment-shown-count');
 const commentCountAll = document.querySelector('.social__comment-total-count');
@@ -39,6 +39,7 @@ const onBigPictureBtnCloseClick = () => {
 
 const creatingCommentElements = (pictureData) => {
   const comments = pictureData.comments;
+
   comments.forEach(({avatar, name, message}) => {
     let element = `<li class="social__comment">
         <img class="social__picture" src="${avatar}" alt="${name}" width="35" height="35">
@@ -59,20 +60,24 @@ const fillBigPicture = ({url, likes, description, comments}) => {
 const renderCommentsBigPicture = () => {
   const maxCounter = socialCommentCounter + 5;
   const elemetComment = arrayComents.slice(socialCommentCounter, maxCounter);
+
   elemetComment.forEach((_, i) => {
     socialComments.append(elemetComment[i]);
     socialCommentCounter += 1;
   });
+
   if (socialCommentCounter === arrayComents.length) {
     commentsLoader.classList.add('hidden');
   }
+
   commentCountDisplayed.textContent = socialCommentCounter;
   commentCountAll.textContent = arrayComents.length;
 };
 
 const onPicturesContainerClick = (event) =>{
   const targetId = event.target.parentNode.id;
-  const pictureData = data.find((element) => element.id === Number(targetId));
+  const pictureData = arrayPhotos.find((element) => element.id === Number(targetId));
+
   if (event.target.classList[0] === 'picture__img'){
     openBigPicture();
     fillBigPicture(pictureData);

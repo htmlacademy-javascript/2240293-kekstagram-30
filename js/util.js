@@ -1,4 +1,3 @@
-
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -6,7 +5,7 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-function createSequenceNumber () {
+const createSequenceNumber = () => {
   const previousValues = [];
 
   return function () {
@@ -19,7 +18,8 @@ function createSequenceNumber () {
     previousValues.push(currentValue);
     return currentValue;
   };
-}
-
+};
 const isEscapeKey = (evt) => evt.key === 'Escape';
+
+
 export {getRandomInteger, createSequenceNumber, isEscapeKey};
