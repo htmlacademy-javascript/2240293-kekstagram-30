@@ -1,11 +1,10 @@
-import { getRandomInteger } from './util';
+import { getRandomInteger} from './util';
 import {renderPictures} from './miniature';
 import {pictures} from './main.js';
 const pictureListElement = document.querySelector('.pictures');
 const imgFiltersSection = document.querySelector('.img-filters');
 const imgFiltersForm = document.querySelector('.img-filters__form');
 const filtersBtn = imgFiltersSection.querySelectorAll('.img-filters__button');
-
 
 const showImgFiltersSection = () => {
   imgFiltersSection.classList.remove('img-filters--inactive');
@@ -41,16 +40,10 @@ const sortUserImagesDefault = () => {
   renderPictures(pictures);
 };
 
-const onfilterBtnClick = (evt) =>{
-  const target = evt.target;
+const sortUserImages = (target) => {
   pictureListElement.querySelectorAll('.picture').forEach((Element) => {
     Element.remove();
   });
-  for (let i = 0; i <= filtersBtn.length - 1; i++) {
-    filtersBtn[i].classList.remove('img-filters__button--active');
-  }
-  target.classList.add('img-filters__button--active');
-
   if (target.id.endsWith('-random')) {
     sortUserImagesRandom();
   } else if (target.id.endsWith('-discussed')) {
@@ -60,5 +53,15 @@ const onfilterBtnClick = (evt) =>{
   }
 };
 
-imgFiltersForm.addEventListener('click',onfilterBtnClick);
-export {showImgFiltersSection};
+const setfilterBtnClick = (cb) => {
+  imgFiltersForm.addEventListener('click', (evt) => {
+    const target = evt.target;
+    for (let i = 0; i <= filtersBtn.length - 1; i++) {
+      filtersBtn[i].classList.remove('img-filters__button--active');
+    }
+    target.classList.add('img-filters__button--active');
+    cb(target);
+  }
+  );
+};
+export {showImgFiltersSection, setfilterBtnClick, sortUserImages};
