@@ -1,5 +1,5 @@
 import {isEscapeKey} from './util.js';
-import {arrayPhotos} from './miniature.js';
+import {pictures} from './main.js';
 const bigPicture = document.querySelector('.big-picture');
 const picturesContainer = document.querySelector('.pictures');
 const bigPictureBtnClose = document.querySelector('.big-picture__cancel');
@@ -76,7 +76,7 @@ const renderCommentsBigPicture = () => {
 
 const onPicturesContainerClick = (event) =>{
   const targetId = event.target.parentNode.id;
-  const pictureData = arrayPhotos.find((element) => element.id === Number(targetId));
+  const pictureData = pictures.find((element) => element.id === Number(targetId));
 
   if (event.target.classList[0] === 'picture__img'){
     openBigPicture();

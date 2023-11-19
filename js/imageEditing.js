@@ -111,6 +111,7 @@ const onEffectClick = (element) => {
   if (element.target.id === 'effect-none') {
     effectLevelSliderContainer.classList.add('hidden');
     imgPreview.style = 'none';
+    return;
   } else {
     effectLevelSliderContainer.classList.remove('hidden');
   }

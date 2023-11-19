@@ -19,6 +19,7 @@ const createSequenceNumber = () => {
     return currentValue;
   };
 };
+
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 
