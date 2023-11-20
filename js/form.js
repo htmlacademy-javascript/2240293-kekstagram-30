@@ -1,6 +1,6 @@
 import {isEscapeKey} from './util.js';
 import { sendPicture } from './api.js';
-import {showSuccessMessageForm, showErrorMessageForm} from './messange.js';
+import {showSuccessMessageForm, showErrorMessageForm} from './message.js';
 
 const inputUpload = document.querySelector('.img-upload__input');
 const modalImageEditor = document.querySelector('.img-upload__overlay');

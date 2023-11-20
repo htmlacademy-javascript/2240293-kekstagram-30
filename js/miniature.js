@@ -1,6 +1,5 @@
 const pictureListElement = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-let arrayPhotos = null;
 
 const createPicture = ({id, url, description, comments, likes}) => {
   const pictureElement = pictureTemplate.cloneNode(true);
@@ -14,7 +13,6 @@ const createPicture = ({id, url, description, comments, likes}) => {
 };
 
 const renderPictures = (photos) => {
-  arrayPhotos = photos;
   const pictureListFragment = document.createDocumentFragment();
   photos.forEach((picture) => {
     const pictureElement = createPicture(picture);
@@ -23,4 +21,4 @@ const renderPictures = (photos) => {
   pictureListElement.appendChild(pictureListFragment);
 };
 
-export {renderPictures, arrayPhotos};
+export {renderPictures, createPicture};
