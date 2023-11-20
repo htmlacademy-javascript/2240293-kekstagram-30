@@ -1,5 +1,5 @@
-import { getRandomInteger} from './util';
-import {renderPictures} from './miniature';
+import { getRandomInteger} from './util.js';
+import {renderPictures} from './miniature.js';
 import {pictures} from './main.js';
 const pictureListElement = document.querySelector('.pictures');
 const imgFiltersSection = document.querySelector('.img-filters');
