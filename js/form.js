@@ -71,14 +71,14 @@ const checksValidityHashtag = () => {
   }
 
   const arrayHashtags = turnArrayHashtags();
-  let boolean = true;
+  let result = true;
   arrayHashtags.forEach((element) => {
     if (!hashtag.test(element)){
-      boolean = false;
+      result = false;
     }
   });
 
-  return boolean;
+  return result;
 };
 
 const checksHashtagsForRepetition = () => {
