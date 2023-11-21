@@ -1,31 +1,30 @@
 import {isEscapeKey} from './util.js';
-import { sendPicture } from './api.js';
+import {sendPicture} from './api.js';
 import {showSuccessMessageForm, showErrorMessageForm} from './message.js';
 
 const inputUpload = document.querySelector('.img-upload__input');
 const modalImageEditor = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
-const modalImageEditorBtnClose = document.querySelector('.img-upload__cancel');
+const modalImageEditorButtonClose = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
 const comment = form.querySelector('.text__description');
 const hashtags = form.querySelector('.text__hashtags');
 const imgPreview = document.querySelector('.img-upload__preview');
 const effectLevelSliderContainer = document.querySelector('.img-upload__effect-level');
-const formSabbmitBtn = form.querySelector('.img-upload__submit');
-
+const formSabbmitButton = form.querySelector('.img-upload__submit');
 const hashtag = /^#[a-zA-Zа-яёА-ЯЁ0-9]{1,19}$/;
-const formSabbmitBtnCaption = {
+const FormSabbmitButtonCaption = {
   SABBMITING: 'Отправляю...',
   DEFAULT: 'Опубликовать'
 };
 
-const activeElement = () => document.activeElement === comment ||
+const getActiveElement = () => document.activeElement === comment ||
   document.activeElement === hashtags;
 
 const isErrorMessageExsits = () => Boolean(document.querySelector('.error'));
 
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt) && !activeElement() && !isErrorMessageExsits()) {
+  if (isEscapeKey(evt) && !getActiveElement() && !isErrorMessageExsits()) {
     evt.preventDefault();
     body.classList.remove('modal-open');
     modalImageEditor.classList.add('hidden');
@@ -42,7 +41,7 @@ inputUpload.onchange = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const onModalImageEditorBtnCloseClick = () => {
+const onModalImageEditorButtonCloseClick = () => {
   modalImageEditor.classList.add('hidden');
   body.classList.remove('modal-open');
   inputUpload.value = null;
@@ -77,29 +76,28 @@ const checksValidityHashtag = () => {
   }
 
   const arrayHashtags = turnArrayHashtags();
-  let bul = true;
+  let boolean = true;
   arrayHashtags.forEach((element) => {
     if (!hashtag.test(element)){
-      bul = false;
+      boolean = false;
     }
   });
 
-  return bul;
+  return boolean;
 };
 
 const checksHashtagsForRepetition = () => {
   const arrayHashtags = turnArrayHashtags();
   const newArrayHashtags = [];
-  let bul = true;
+  let boolean = true;
 
   arrayHashtags.forEach((element) => {
     if (newArrayHashtags.indexOf(element.toLowerCase()) !== -1) {
-      bul = false;
-    } else {
-      newArrayHashtags.push(element.toLowerCase());
+      boolean = false;
     }
+    newArrayHashtags.push(element.toLowerCase());
   });
-  return bul;
+  return boolean;
 };
 
 pristine.addValidator(comment,
@@ -127,27 +125,27 @@ pristine.addValidator(hashtags,
   false
 );
 
-const toggleFormSabbmitBtn = (isDisabled) => {
-  formSabbmitBtn.disabled = isDisabled;
+const toggleFormSabbmitButton = (isDisabled) => {
+  formSabbmitButton.disabled = isDisabled;
 
   if (isDisabled) {
-    formSabbmitBtn.textContent = formSabbmitBtnCaption.SABBMITING;
+    formSabbmitButton.textContent = FormSabbmitButtonCaption.SABBMITING;
   } else {
-    formSabbmitBtn.textContent = formSabbmitBtnCaption.DEFAULT;
+    formSabbmitButton.textContent = FormSabbmitButtonCaption.DEFAULT;
   }
 };
 
 const sentForm = async (formElement) => {
   if (pristine.validate()) {
     try {
-      toggleFormSabbmitBtn(true);
+      toggleFormSabbmitButton(true);
       await sendPicture(new FormData(formElement));
-      toggleFormSabbmitBtn(false);
-      onModalImageEditorBtnCloseClick();
+      toggleFormSabbmitButton(false);
+      onModalImageEditorButtonCloseClick();
       showSuccessMessageForm();
     } catch {
       showErrorMessageForm();
-      toggleFormSabbmitBtn(false);
+      toggleFormSabbmitButton(false);
     }
   }
 };
@@ -157,6 +155,6 @@ const onFormSabbmit = (evt) => {
   sentForm(evt.target);
 };
 
-modalImageEditorBtnClose.addEventListener('click', onModalImageEditorBtnCloseClick);
+modalImageEditorButtonClose.addEventListener('click', onModalImageEditorButtonCloseClick);
 form.addEventListener('submit', onFormSabbmit);
 

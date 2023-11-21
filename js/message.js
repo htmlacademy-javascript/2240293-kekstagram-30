@@ -1,29 +1,29 @@
 import {isEscapeKey} from './util.js';
 
-const dataErroreElement = document
+const dataErrore = document
   .querySelector('#data-error')
   .content
   .querySelector('.data-error');
-const successMessageElement = document
+const successMessage = document
   .querySelector('#success')
   .content
   .querySelector('.success');
-const errorMessageElement = document
+const errorMessage = document
   .querySelector('#error')
   .content
   .querySelector('.error');
 const REMOBE_MESSAGE_TIMEOUTE = 5000;
 
 const showDataErroreMessande = () => {
-  document.body.append (dataErroreElement);
+  document.body.append (dataErrore);
   setTimeout (() => {
-    dataErroreElement.remove();
+    dataErrore.remove();
   }, REMOBE_MESSAGE_TIMEOUTE);
 };
 
 const hideMessageForm = () => {
-  const messageElement = document.querySelector('.success') || document.querySelector('.error');
-  messageElement.remove();
+  const message = document.querySelector('.success') || document.querySelector('.error');
+  message.remove();
   // eslint-disable-next-line no-use-before-define
   document.removeEventListener('keydown', onDocumentKeydown);
   // eslint-disable-next-line no-use-before-define
@@ -43,23 +43,23 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const onMessageBtnCloseClick = () => {
+const onMessageButtonCloseClick = () => {
   hideMessageForm();
 };
 
-const showMessageForm = (element, classBtn) => {
+const showMessageForm = (element, classButton) => {
   document.body.append(element);
-  element.querySelector(classBtn).addEventListener('click', onMessageBtnCloseClick);
+  element.querySelector(classButton).addEventListener('click', onMessageButtonCloseClick);
   document.addEventListener('mousedown', onDocumentMousedown);
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const showSuccessMessageForm = () => {
-  showMessageForm(successMessageElement, '.success__button');
+  showMessageForm(successMessage, '.success__button');
 };
 
 const showErrorMessageForm = () => {
-  showMessageForm(errorMessageElement, '.error__button');
+  showMessageForm(errorMessage, '.error__button');
 };
 
 

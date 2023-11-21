@@ -8,12 +8,11 @@ const effects = document.querySelectorAll('.effects__radio');
 const effectLevelSliderContainer = document.querySelector('.img-upload__effect-level');
 const inputUpload = document.querySelector('.img-upload__input');
 const effectsPreview = document.querySelectorAll('.effects__preview');
-
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const MIN_CONTROL_VALUE = 25;
 const MAX_CONTROL_VALUE = 100;
 let activeFilter = null;
-const effectsSliderSettings = [
+const EFFECTS_SLIDER_SETTINGS = [
   {
     id: 'effect-chrome',
     min: '0',
@@ -66,21 +65,21 @@ const changeInputUpload = () => {
 
 inputUpload.addEventListener('change', changeInputUpload);
 
-const onchangeControlValue = () => {
+const onСhangeControlValue = () => {
   imgPreview.style.transform = `scale(${parseInt(controlValue.value, 10) / 100})`;
 };
 
 const onControlSmallerBtmClick = () => {
   if (MIN_CONTROL_VALUE < parseInt(controlValue.value, 10)) {
     controlValue.value = `${parseInt(controlValue.value, 10) - 25}%`;
-    onchangeControlValue();
+    onСhangeControlValue();
   }
 };
 
 const onControlBiggerBtmClick = () => {
   if (parseInt(controlValue.value, 10) < MAX_CONTROL_VALUE) {
     controlValue.value = `${parseInt(controlValue.value, 10) + 25}%`;
-    onchangeControlValue();
+    onСhangeControlValue();
   }
 };
 
@@ -107,7 +106,7 @@ const createEffectValue = ({filter}) =>{
 
 const createEfectSetting = (element) => {
   const targetId = element.target.id;
-  return effectsSliderSettings.find((effect) => effect.id === targetId);
+  return EFFECTS_SLIDER_SETTINGS.find((effect) => effect.id === targetId);
 };
 
 const editingImgPreview = (filter) => {

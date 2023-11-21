@@ -1,10 +1,10 @@
 import './popup.js';
 import './form.js';
-import './imageEditing.js';
+import './image-editing.js';
 import {renderPictures} from './miniature.js';
 import {loadPictures} from './api.js';
 import {showDataErroreMessande} from './message.js';
-import {showImgFiltersSection, setfilterBtnClick, sortUserImages} from './filters.js';
+import {showImgFiltersSection, setfilterButtonClick, sortUserImages} from './filters.js';
 import { debounce } from './util.js';
 let pictures = [];
 const RERENDER_DELAY = 500;
@@ -14,7 +14,7 @@ const bootstrap = async () => {
     pictures = await loadPictures();
     renderPictures(pictures);
     showImgFiltersSection();
-    setfilterBtnClick(debounce(
+    setfilterButtonClick(debounce(
       (target) => sortUserImages(target), RERENDER_DELAY));
   } catch {
     showDataErroreMessande();
