@@ -56,12 +56,7 @@ const pristine = new Pristine(form, {
   errorClass: 'img-upload__field-wrapper--error'
 });
 
-const validateComment = (value) => {
-  if(value.length <= 140) {
-    return true;
-  }
-  return false;
-};
+const validateComment = (value) => value.length <= 140;
 
 const turnArrayHashtags = () => hashtags.value.split(' ');
 
