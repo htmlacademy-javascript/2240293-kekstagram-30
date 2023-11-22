@@ -5,6 +5,8 @@ const pictureList = document.querySelector('.pictures');
 const imgFiltersSection = document.querySelector('.img-filters');
 const imgFiltersForm = document.querySelector('.img-filters__form');
 const filtersButton = imgFiltersSection.querySelectorAll('.img-filters__button');
+const NUMBER_RANDOM_PHOTOS = 10;
+const MAX_ID_RANDOM_PHOTOS = 24;
 
 const showImgFiltersSection = () => {
   imgFiltersSection.classList.remove('img-filters--inactive');
@@ -22,8 +24,8 @@ const compareComments = (photoA, photoB) => {
 
 const sortUserImagesRandom = () => {
   const newArrayPhotos = [];
-  for (let i = 1; newArrayPhotos.length <= 9; i++) {
-    const idPhoto = getRandomInteger(0, 24);
+  for (let i = 0; newArrayPhotos.length <= NUMBER_RANDOM_PHOTOS - 1; i++) {
+    const idPhoto = getRandomInteger(0, MAX_ID_RANDOM_PHOTOS);
     if (newArrayPhotos.indexOf(pictures[idPhoto]) === -1) {
       newArrayPhotos.push(pictures[idPhoto]);
     }
@@ -32,7 +34,7 @@ const sortUserImagesRandom = () => {
 };
 
 const sortUserImagesDiscussed = () => {
-  const newArrayPhotos = pictures;
+  const newArrayPhotos = structuredClone(pictures);
   newArrayPhotos.sort(compareComments);
   renderPictures(newArrayPhotos);
 };

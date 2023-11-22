@@ -3,7 +3,7 @@ import './form.js';
 import './image-editing.js';
 import {renderPictures} from './miniature.js';
 import {loadPictures} from './api.js';
-import {showDataErroreMessande} from './message.js';
+import {showDataErroreMessage} from './message.js';
 import {showImgFiltersSection, setfilterButtonClick, sortUserImages} from './filters.js';
 import { debounce } from './util.js';
 let pictures = [];
@@ -17,7 +17,7 @@ const bootstrap = async () => {
     setfilterButtonClick(debounce(
       (target) => sortUserImages(target), RERENDER_DELAY));
   } catch {
-    showDataErroreMessande();
+    showDataErroreMessage();
   }
 };
 

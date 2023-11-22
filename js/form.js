@@ -11,12 +11,14 @@ const comment = form.querySelector('.text__description');
 const hashtags = form.querySelector('.text__hashtags');
 const imgPreview = document.querySelector('.img-upload__preview');
 const effectLevelSliderContainer = document.querySelector('.img-upload__effect-level');
-const formSabbmitButton = form.querySelector('.img-upload__submit');
+const formSubbmitButton = form.querySelector('.img-upload__submit');
 const hashtag = /^#[a-zA-Zа-яёА-ЯЁ0-9]{1,19}$/;
-const FormSabbmitButtonCaption = {
-  SABBMITING: 'Отправляю...',
+const FormSubbmitButtonCaption = {
+  SUBBMITING: 'Отправляю...',
   DEFAULT: 'Опубликовать'
 };
+const MAX_COMMENT_LENGTH = 140;
+const MAX_NUMBER_HASHTAGS = 5;
 
 const getActiveElement = () => document.activeElement === comment ||
   document.activeElement === hashtags;
@@ -56,13 +58,13 @@ const pristine = new Pristine(form, {
   errorClass: 'img-upload__field-wrapper--error'
 });
 
-const validateComment = (value) => value.length <= 140;
+const validateComment = (value) => value.length <= MAX_COMMENT_LENGTH;
 
 const turnArrayHashtags = () => hashtags.value.split(' ');
 
 const checksNumberHashtags = () => {
   const arrayHashtags = turnArrayHashtags();
-  return arrayHashtags.length <= 5;
+  return arrayHashtags.length <= MAX_NUMBER_HASHTAGS;
 };
 
 const checksValidityHashtag = () => {
@@ -120,36 +122,36 @@ pristine.addValidator(hashtags,
   false
 );
 
-const toggleFormSabbmitButton = (isDisabled) => {
-  formSabbmitButton.disabled = isDisabled;
+const toggleFormSubbmitButton = (isDisabled) => {
+  formSubbmitButton.disabled = isDisabled;
 
   if (isDisabled) {
-    formSabbmitButton.textContent = FormSabbmitButtonCaption.SABBMITING;
+    formSubbmitButton.textContent = FormSubbmitButtonCaption.SUBBMITING;
   } else {
-    formSabbmitButton.textContent = FormSabbmitButtonCaption.DEFAULT;
+    formSubbmitButton.textContent = FormSubbmitButtonCaption.DEFAULT;
   }
 };
 
-const sentForm = async (formElement) => {
+const sendForm = async (formElement) => {
   if (pristine.validate()) {
     try {
-      toggleFormSabbmitButton(true);
+      toggleFormSubbmitButton(true);
       await sendPicture(new FormData(formElement));
-      toggleFormSabbmitButton(false);
+      toggleFormSubbmitButton(false);
       onModalImageEditorButtonCloseClick();
       showSuccessMessageForm();
     } catch {
       showErrorMessageForm();
-      toggleFormSabbmitButton(false);
+      toggleFormSubbmitButton(false);
     }
   }
 };
 
-const onFormSabbmit = (evt) => {
+const onFormSubbmit = (evt) => {
   evt.preventDefault();
-  sentForm(evt.target);
+  sendForm(evt.target);
 };
 
 modalImageEditorButtonClose.addEventListener('click', onModalImageEditorButtonCloseClick);
-form.addEventListener('submit', onFormSabbmit);
+form.addEventListener('submit', onFormSubbmit);
 
