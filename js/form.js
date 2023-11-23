@@ -86,15 +86,15 @@ const checksValidityHashtag = () => {
 const checksHashtagsForRepetition = () => {
   const arrayHashtags = turnArrayHashtags();
   const newArrayHashtags = [];
-  let boolean = true;
+  let result = true;
 
   arrayHashtags.forEach((element) => {
     if (newArrayHashtags.indexOf(element.toLowerCase()) !== -1) {
-      boolean = false;
+      result = false;
     }
     newArrayHashtags.push(element.toLowerCase());
   });
-  return boolean;
+  return result;
 };
 
 pristine.addValidator(comment,
