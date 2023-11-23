@@ -1,12 +1,17 @@
 import { getRandomInteger} from './util.js';
 import {renderPictures} from './miniature.js';
-import {pictures} from './main.js';
 const pictureList = document.querySelector('.pictures');
 const imgFiltersSection = document.querySelector('.img-filters');
 const imgFiltersForm = document.querySelector('.img-filters__form');
 const filtersButton = imgFiltersSection.querySelectorAll('.img-filters__button');
 const NUMBER_RANDOM_PHOTOS = 10;
 const MAX_ID_RANDOM_PHOTOS = 24;
+
+let arrayPhotos = [];
+
+const getArrayPhotosFilter = (pictures) => {
+  arrayPhotos = structuredClone(pictures);
+};
 
 const showImgFiltersSection = () => {
   imgFiltersSection.classList.remove('img-filters--inactive');
@@ -26,21 +31,21 @@ const sortUserImagesRandom = () => {
   const newArrayPhotos = [];
   for (let i = 0; newArrayPhotos.length <= NUMBER_RANDOM_PHOTOS - 1; i++) {
     const idPhoto = getRandomInteger(0, MAX_ID_RANDOM_PHOTOS);
-    if (newArrayPhotos.indexOf(pictures[idPhoto]) === -1) {
-      newArrayPhotos.push(pictures[idPhoto]);
+    if (newArrayPhotos.indexOf(arrayPhotos[idPhoto]) === -1) {
+      newArrayPhotos.push(arrayPhotos[idPhoto]);
     }
   }
   renderPictures(newArrayPhotos);
 };
 
 const sortUserImagesDiscussed = () => {
-  const newArrayPhotos = structuredClone(pictures);
+  const newArrayPhotos = structuredClone(arrayPhotos);
   newArrayPhotos.sort(compareComments);
   renderPictures(newArrayPhotos);
 };
 
 const sortUserImagesDefault = () => {
-  renderPictures(pictures);
+  renderPictures(arrayPhotos);
 };
 
 const sortUserImages = (target) => {
@@ -67,4 +72,4 @@ const setfilterButtonClick = (cb) => {
   }
   );
 };
-export {showImgFiltersSection, setfilterButtonClick, sortUserImages};
+export {showImgFiltersSection, setfilterButtonClick, sortUserImages, getArrayPhotosFilter};

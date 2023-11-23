@@ -1,5 +1,4 @@
 import {isEscapeKey} from './util.js';
-import {pictures} from './main.js';
 const bigPicture = document.querySelector('.big-picture');
 const picturesContainer = document.querySelector('.pictures');
 const bigPictureButtonClose = document.querySelector('.big-picture__cancel');
@@ -10,7 +9,12 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 const socialComments = document.querySelector('.social__comments');
 
 let arrayComents = [];
+let arrayPhotos = [];
 let socialCommentCounter = 0;
+
+const getArrayPhotosPopup = (pictures) => {
+  arrayPhotos = structuredClone(pictures);
+};
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -75,7 +79,7 @@ const renderCommentsBigPicture = () => {
 
 const onPicturesContainerClick = (event) =>{
   const targetId = event.target.parentNode.id;
-  const pictureData = pictures.find((element) => element.id === Number(targetId));
+  const pictureData = arrayPhotos.find((element) => element.id === Number(targetId));
 
   if (event.target.classList[0] === 'picture__img'){
     openBigPicture();
@@ -90,3 +94,5 @@ picturesContainer.addEventListener('click', onPicturesContainerClick);
 bigPictureButtonClose.addEventListener('click', onBigPictureButtonCloseClick);
 
 commentsLoader.addEventListener('click', renderCommentsBigPicture);
+
+export {getArrayPhotosPopup};
