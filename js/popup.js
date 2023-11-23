@@ -55,7 +55,7 @@ const creatingCommentElements = (pictureData) => {
 
 const FillBigPicture = ({url, likes, description, comments}) => {
   bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
-  bigPicture.querySelector('.social__likes').textContent = likes;
+  bigPicture.querySelector('.likes-count').textContent = likes;
   bigPicture.querySelector('.social__caption').textContent = description;
   bigPicture.querySelector('.social__comment-total-count').textContent = comments.length;
 };
