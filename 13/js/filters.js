@@ -1,10 +1,17 @@
 import { getRandomInteger} from './util.js';
 import {renderPictures} from './miniature.js';
-import {pictures} from './main.js';
-const pictureListElement = document.querySelector('.pictures');
+const pictureList = document.querySelector('.pictures');
 const imgFiltersSection = document.querySelector('.img-filters');
 const imgFiltersForm = document.querySelector('.img-filters__form');
-const filtersBtn = imgFiltersSection.querySelectorAll('.img-filters__button');
+const filtersButton = imgFiltersSection.querySelectorAll('.img-filters__button');
+const NUMBER_RANDOM_PHOTOS = 10;
+const MAX_ID_RANDOM_PHOTOS = 24;
+
+let arrayPhotos = [];
+
+const getArrayPhotosFilter = (pictures) => {
+  arrayPhotos = structuredClone(pictures);
+};
 
 const showImgFiltersSection = () => {
   imgFiltersSection.classList.remove('img-filters--inactive');
@@ -22,26 +29,27 @@ const compareComments = (photoA, photoB) => {
 
 const sortUserImagesRandom = () => {
   const newArrayPhotos = [];
-  for (let i = 1; newArrayPhotos.length <= 9; i++) {
-    const idPhoto = getRandomInteger(0, 24);
-    if (newArrayPhotos.indexOf(pictures[idPhoto]) === -1) {
-      newArrayPhotos.push(pictures[idPhoto]);
+  for (let i = 0; newArrayPhotos.length <= NUMBER_RANDOM_PHOTOS - 1; i++) {
+    const idPhoto = getRandomInteger(0, MAX_ID_RANDOM_PHOTOS);
+    if (newArrayPhotos.indexOf(arrayPhotos[idPhoto]) === -1) {
+      newArrayPhotos.push(arrayPhotos[idPhoto]);
     }
   }
   renderPictures(newArrayPhotos);
 };
+
 const sortUserImagesDiscussed = () => {
-  const newArrayPhotos = pictures;
+  const newArrayPhotos = structuredClone(arrayPhotos);
   newArrayPhotos.sort(compareComments);
   renderPictures(newArrayPhotos);
 };
 
 const sortUserImagesDefault = () => {
-  renderPictures(pictures);
+  renderPictures(arrayPhotos);
 };
 
 const sortUserImages = (target) => {
-  pictureListElement.querySelectorAll('.picture').forEach((Element) => {
+  pictureList.querySelectorAll('.picture').forEach((Element) => {
     Element.remove();
   });
   if (target.id.endsWith('-random')) {
@@ -53,15 +61,15 @@ const sortUserImages = (target) => {
   }
 };
 
-const setfilterBtnClick = (cb) => {
+const setfilterButtonClick = (cb) => {
   imgFiltersForm.addEventListener('click', (evt) => {
     const target = evt.target;
-    for (let i = 0; i <= filtersBtn.length - 1; i++) {
-      filtersBtn[i].classList.remove('img-filters__button--active');
+    for (let i = 0; i <= filtersButton.length - 1; i++) {
+      filtersButton[i].classList.remove('img-filters__button--active');
     }
     target.classList.add('img-filters__button--active');
     cb(target);
   }
   );
 };
-export {showImgFiltersSection, setfilterBtnClick, sortUserImages};
+export {showImgFiltersSection, setfilterButtonClick, sortUserImages, getArrayPhotosFilter};

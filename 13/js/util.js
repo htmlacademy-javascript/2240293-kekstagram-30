@@ -5,21 +5,6 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const createSequenceNumber = () => {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = 0;
-    if (previousValues.length === 0) {
-      currentValue = 1;
-    } else {
-      currentValue = previousValues.length + 1;
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-};
-
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const debounce = (callback, timeoutDelay) => {
@@ -30,4 +15,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export {getRandomInteger, createSequenceNumber, isEscapeKey, debounce};
+export {getRandomInteger, isEscapeKey, debounce};

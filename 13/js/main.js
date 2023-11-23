@@ -1,26 +1,27 @@
 import './popup.js';
 import './form.js';
-import './imageEditing.js';
+import './image-editing.js';
 import {renderPictures} from './miniature.js';
 import {loadPictures} from './api.js';
-import {showDataErroreMessande} from './message.js';
-import {showImgFiltersSection, setfilterBtnClick, sortUserImages} from './filters.js';
+import {showDataErroreMessage} from './message.js';
+import {showImgFiltersSection, setfilterButtonClick, sortUserImages, getArrayPhotosFilter} from './filters.js';
 import { debounce } from './util.js';
-let pictures = [];
+import {getArrayPhotosPopup} from './popup.js';
+
 const RERENDER_DELAY = 500;
 
 const bootstrap = async () => {
   try {
-    pictures = await loadPictures();
+    const pictures = await loadPictures();
     renderPictures(pictures);
+    getArrayPhotosPopup(pictures);
     showImgFiltersSection();
-    setfilterBtnClick(debounce(
+    getArrayPhotosFilter(pictures);
+    setfilterButtonClick(debounce(
       (target) => sortUserImages(target), RERENDER_DELAY));
   } catch {
-    showDataErroreMessande();
+    showDataErroreMessage();
   }
 };
 
 bootstrap();
-
-export {pictures};

@@ -1,33 +1,38 @@
 import {isEscapeKey} from './util.js';
 
-const dataErroreElement = document
+const dataError = document
   .querySelector('#data-error')
   .content
   .querySelector('.data-error');
-const successMessageElement = document
+const successMessage = document
   .querySelector('#success')
   .content
   .querySelector('.success');
-const errorMessageElement = document
+const errorMessage = document
   .querySelector('#error')
   .content
   .querySelector('.error');
-const REMOBE_MESSAGE_TIMEOUTE = 5000;
+const REMOVE_MESSAGE_TIMEOUT = 5000;
 
-const showDataErroreMessande = () => {
-  document.body.append (dataErroreElement);
+const showDataErroreMessage = () => {
+  document.body.append (dataError);
   setTimeout (() => {
-    dataErroreElement.remove();
-  }, REMOBE_MESSAGE_TIMEOUTE);
+    dataError.remove();
+  }, REMOVE_MESSAGE_TIMEOUT);
+};
+
+const InformationMessageButtonClass = {
+  SUCCESS: '.success__button',
+  ERROR: '.error__button'
 };
 
 const hideMessageForm = () => {
-  const messageElement = document.querySelector('.success') || document.querySelector('.error');
-  messageElement.remove();
+  const message = document.querySelector('.success') || document.querySelector('.error');
+  message.remove();
   // eslint-disable-next-line no-use-before-define
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onDocumentKeydown);// Функции взаимосвязаны и от перемены места ошибка линта не исчезнет, поэтому для 2х сток остановлена проверка
   // eslint-disable-next-line no-use-before-define
-  document.removeEventListener('mousedown', onDocumentMousedown);
+  document.removeEventListener('mousedown', onDocumentMousedown);// Функции взаимосвязаны и от перемены места ошибка линта не исчезнет, поэтому для 2х сток остановлена проверка
 };
 
 const onDocumentMousedown = (evt) => {
@@ -43,24 +48,24 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const onMessageBtnCloseClick = () => {
+const onMessageButtonCloseClick = () => {
   hideMessageForm();
 };
 
-const showMessageForm = (element, classBtn) => {
+const showMessageForm = (element, classButton) => {
   document.body.append(element);
-  element.querySelector(classBtn).addEventListener('click', onMessageBtnCloseClick);
+  element.querySelector(classButton).addEventListener('click', onMessageButtonCloseClick);
   document.addEventListener('mousedown', onDocumentMousedown);
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const showSuccessMessageForm = () => {
-  showMessageForm(successMessageElement, '.success__button');
+  showMessageForm(successMessage, InformationMessageButtonClass.SUCCESS);
 };
 
 const showErrorMessageForm = () => {
-  showMessageForm(errorMessageElement, '.error__button');
+  showMessageForm(errorMessage, InformationMessageButtonClass.ERROR);
 };
 
 
-export {showDataErroreMessande, showSuccessMessageForm, showErrorMessageForm};
+export {showDataErroreMessage, showSuccessMessageForm, showErrorMessageForm};
