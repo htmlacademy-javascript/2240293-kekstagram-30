@@ -66,7 +66,7 @@ const changeInputUpload = () => {
 inputUpload.addEventListener('change', changeInputUpload);
 
 const onСhangeControlValue = () => {
-  imgPreview.style.transform = `scale(${parseInt(controlValue.value, 10) / 100})`;
+  imgPreview.querySelector('img').style.transform = `scale(${parseInt(controlValue.value, 10) / 100})`;
 };
 
 const onControlSmallerBtmClick = () => {
@@ -100,6 +100,8 @@ const createEffectValue = ({filter}) =>{
     effectValue = `${effectLevelValue.value}%`;
   } else if(filter === 'blur'){
     effectValue = `${effectLevelValue.value}px`;
+  } else {
+    effectValue = Number(effectValue).toFixed(1);
   }
   return effectValue;
 };
