@@ -90,7 +90,18 @@ noUiSlider.create(effectLevelSlider, {
   },
   step: 1,
   start: 100,
-  connect: 'lower'
+  connect: 'lower',
+  format: {
+    to: function (value) {
+      if (Number.isInteger(value)) {
+        return value.toFixed(0);
+      }
+      return value.toFixed(1);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
 });
 
 const createEffectValue = ({filter}) =>{
@@ -100,8 +111,6 @@ const createEffectValue = ({filter}) =>{
     effectValue = `${effectLevelValue.value}%`;
   } else if(filter === 'blur'){
     effectValue = `${effectLevelValue.value}px`;
-  } else {
-    effectValue = Number(effectValue).toFixed(1);
   }
   return effectValue;
 };
@@ -116,7 +125,7 @@ const editingImgPreview = (filter) => {
     return;
   }
 
-  imgPreview.style.filter = `${filter.filter}(${createEffectValue(filter)})`;
+  imgPreview.querySelector('img').style.filter = `${filter.filter}(${createEffectValue(filter)})`;
 };
 
 effectLevelSlider.noUiSlider.on('update', () => {
@@ -128,7 +137,7 @@ effectLevelSlider.noUiSlider.on('update', () => {
 const onEffectClick = (element) => {
   if (element.target.id === 'effect-none') {
     effectLevelSliderContainer.classList.add('hidden');
-    imgPreview.style = 'none';
+    imgPreview.querySelector('img').style = 'none';
     return;
   } else {
     effectLevelSliderContainer.classList.remove('hidden');

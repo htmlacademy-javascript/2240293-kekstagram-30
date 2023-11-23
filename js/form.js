@@ -66,7 +66,7 @@ const onModalImageEditorButtonCloseClick = () => {
 
 const validateComment = (value) => value.length <= MAX_COMMENT_LENGTH;
 
-const turnArrayHashtags = () => hashtags.value.split(' ');
+const turnArrayHashtags = () => hashtags.value.split(' ').filter(Boolean);
 
 const checksNumberHashtags = () => {
   const arrayHashtags = turnArrayHashtags();
