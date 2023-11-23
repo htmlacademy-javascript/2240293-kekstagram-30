@@ -6,12 +6,13 @@ const effectLevelValue = document.querySelector('.effect-level__value');
 const effectLevelSlider = document.querySelector('.effect-level__slider');
 const effects = document.querySelectorAll('.effects__radio');
 const effectLevelSliderContainer = document.querySelector('.img-upload__effect-level');
-
-
+const inputUpload = document.querySelector('.img-upload__input');
+const effectsPreview = document.querySelectorAll('.effects__preview');
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const MIN_CONTROL_VALUE = 25;
 const MAX_CONTROL_VALUE = 100;
 let activeFilter = null;
-const effectsSliderSettings = [
+const EFFECTS_SLIDER_SETTINGS = [
   {
     id: 'effect-chrome',
     min: '0',
@@ -49,21 +50,36 @@ const effectsSliderSettings = [
   }
 ];
 
-const onchangeControlValue = () => {
+const changeInputUpload = () => {
+  const file = inputUpload.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    imgPreview.querySelector('img').src = URL.createObjectURL(file);
+    effectsPreview.forEach((element) => {
+      element.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
+    });
+  }
+};
+
+inputUpload.addEventListener('change', changeInputUpload);
+
+const onСhangeControlValue = () => {
   imgPreview.style.transform = `scale(${parseInt(controlValue.value, 10) / 100})`;
 };
 
 const onControlSmallerBtmClick = () => {
   if (MIN_CONTROL_VALUE < parseInt(controlValue.value, 10)) {
     controlValue.value = `${parseInt(controlValue.value, 10) - 25}%`;
-    onchangeControlValue();
+    onСhangeControlValue();
   }
 };
 
 const onControlBiggerBtmClick = () => {
   if (parseInt(controlValue.value, 10) < MAX_CONTROL_VALUE) {
     controlValue.value = `${parseInt(controlValue.value, 10) + 25}%`;
-    onchangeControlValue();
+    onСhangeControlValue();
   }
 };
 
@@ -90,7 +106,7 @@ const createEffectValue = ({filter}) =>{
 
 const createEfectSetting = (element) => {
   const targetId = element.target.id;
-  return effectsSliderSettings.find((effect) => effect.id === targetId);
+  return EFFECTS_SLIDER_SETTINGS.find((effect) => effect.id === targetId);
 };
 
 const editingImgPreview = (filter) => {

@@ -1,31 +1,32 @@
 import {isEscapeKey} from './util.js';
-import { sendPicture } from './api.js';
+import {sendPicture} from './api.js';
 import {showSuccessMessageForm, showErrorMessageForm} from './message.js';
 
 const inputUpload = document.querySelector('.img-upload__input');
 const modalImageEditor = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
-const modalImageEditorBtnClose = document.querySelector('.img-upload__cancel');
+const modalImageEditorButtonClose = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
 const comment = form.querySelector('.text__description');
 const hashtags = form.querySelector('.text__hashtags');
 const imgPreview = document.querySelector('.img-upload__preview');
 const effectLevelSliderContainer = document.querySelector('.img-upload__effect-level');
-const formSabbmitBtn = form.querySelector('.img-upload__submit');
-
+const formSubbmitButton = form.querySelector('.img-upload__submit');
 const hashtag = /^#[a-zA-Zа-яёА-ЯЁ0-9]{1,19}$/;
-const formSabbmitBtnCaption = {
-  SABBMITING: 'Отправляю...',
+const FormSubbmitButtonCaption = {
+  SUBBMITING: 'Отправляю...',
   DEFAULT: 'Опубликовать'
 };
+const MAX_COMMENT_LENGTH = 140;
+const MAX_NUMBER_HASHTAGS = 5;
 
-const activeElement = () => document.activeElement === comment ||
+const getActiveElement = () => document.activeElement === comment ||
   document.activeElement === hashtags;
 
 const isErrorMessageExsits = () => Boolean(document.querySelector('.error'));
 
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt) && !activeElement() && !isErrorMessageExsits()) {
+  if (isEscapeKey(evt) && !getActiveElement() && !isErrorMessageExsits()) {
     evt.preventDefault();
     body.classList.remove('modal-open');
     modalImageEditor.classList.add('hidden');
@@ -42,7 +43,7 @@ inputUpload.onchange = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const onModalImageEditorBtnCloseClick = () => {
+const onModalImageEditorButtonCloseClick = () => {
   modalImageEditor.classList.add('hidden');
   body.classList.remove('modal-open');
   inputUpload.value = null;
@@ -57,18 +58,13 @@ const pristine = new Pristine(form, {
   errorClass: 'img-upload__field-wrapper--error'
 });
 
-const validateComment = (value) => {
-  if(value.length <= 140) {
-    return true;
-  }
-  return false;
-};
+const validateComment = (value) => value.length <= MAX_COMMENT_LENGTH;
 
 const turnArrayHashtags = () => hashtags.value.split(' ');
 
 const checksNumberHashtags = () => {
   const arrayHashtags = turnArrayHashtags();
-  return arrayHashtags.length <= 5;
+  return arrayHashtags.length <= MAX_NUMBER_HASHTAGS;
 };
 
 const checksValidityHashtag = () => {
@@ -77,29 +73,28 @@ const checksValidityHashtag = () => {
   }
 
   const arrayHashtags = turnArrayHashtags();
-  let bul = true;
+  let result = true;
   arrayHashtags.forEach((element) => {
     if (!hashtag.test(element)){
-      bul = false;
+      result = false;
     }
   });
 
-  return bul;
+  return result;
 };
 
 const checksHashtagsForRepetition = () => {
   const arrayHashtags = turnArrayHashtags();
   const newArrayHashtags = [];
-  let bul = true;
+  let result = true;
 
   arrayHashtags.forEach((element) => {
     if (newArrayHashtags.indexOf(element.toLowerCase()) !== -1) {
-      bul = false;
-    } else {
-      newArrayHashtags.push(element.toLowerCase());
+      result = false;
     }
+    newArrayHashtags.push(element.toLowerCase());
   });
-  return bul;
+  return result;
 };
 
 pristine.addValidator(comment,
@@ -127,36 +122,36 @@ pristine.addValidator(hashtags,
   false
 );
 
-const toggleFormSabbmitBtn = (isDisabled) => {
-  formSabbmitBtn.disabled = isDisabled;
+const toggleFormSubbmitButton = (isDisabled) => {
+  formSubbmitButton.disabled = isDisabled;
 
   if (isDisabled) {
-    formSabbmitBtn.textContent = formSabbmitBtnCaption.SABBMITING;
+    formSubbmitButton.textContent = FormSubbmitButtonCaption.SUBBMITING;
   } else {
-    formSabbmitBtn.textContent = formSabbmitBtnCaption.DEFAULT;
+    formSubbmitButton.textContent = FormSubbmitButtonCaption.DEFAULT;
   }
 };
 
-const sentForm = async (formElement) => {
+const sendForm = async (formElement) => {
   if (pristine.validate()) {
     try {
-      toggleFormSabbmitBtn(true);
+      toggleFormSubbmitButton(true);
       await sendPicture(new FormData(formElement));
-      toggleFormSabbmitBtn(false);
-      onModalImageEditorBtnCloseClick();
+      toggleFormSubbmitButton(false);
+      onModalImageEditorButtonCloseClick();
       showSuccessMessageForm();
     } catch {
       showErrorMessageForm();
-      toggleFormSabbmitBtn(false);
+      toggleFormSubbmitButton(false);
     }
   }
 };
 
-const onFormSabbmit = (evt) => {
+const onFormSubbmit = (evt) => {
   evt.preventDefault();
-  sentForm(evt.target);
+  sendForm(evt.target);
 };
 
-modalImageEditorBtnClose.addEventListener('click', onModalImageEditorBtnCloseClick);
-form.addEventListener('submit', onFormSabbmit);
+modalImageEditorButtonClose.addEventListener('click', onModalImageEditorButtonCloseClick);
+form.addEventListener('submit', onFormSubbmit);
 

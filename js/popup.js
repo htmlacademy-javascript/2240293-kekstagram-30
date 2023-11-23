@@ -1,17 +1,20 @@
 import {isEscapeKey} from './util.js';
-import {pictures} from './main.js';
 const bigPicture = document.querySelector('.big-picture');
 const picturesContainer = document.querySelector('.pictures');
-const bigPictureBtnClose = document.querySelector('.big-picture__cancel');
+const bigPictureButtonClose = document.querySelector('.big-picture__cancel');
 const body = document.querySelector('body');
 const commentCountDisplayed = document.querySelector('.social__comment-shown-count');
 const commentCountAll = document.querySelector('.social__comment-total-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const socialComments = document.querySelector('.social__comments');
 
-
 let arrayComents = [];
+let arrayPhotos = [];
 let socialCommentCounter = 0;
+
+const getArrayPhotosPopup = (pictures) => {
+  arrayPhotos = structuredClone(pictures);
+};
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -31,7 +34,7 @@ const openBigPicture = () => {
   socialComments.innerHTML = '';
 };
 
-const onBigPictureBtnCloseClick = () => {
+const onBigPictureButtonCloseClick = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -50,7 +53,7 @@ const creatingCommentElements = (pictureData) => {
   });
 };
 
-const fillBigPicture = ({url, likes, description, comments}) => {
+const FillBigPicture = ({url, likes, description, comments}) => {
   bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
   bigPicture.querySelector('.social__likes').textContent = likes;
   bigPicture.querySelector('.social__caption').textContent = description;
@@ -76,11 +79,11 @@ const renderCommentsBigPicture = () => {
 
 const onPicturesContainerClick = (event) =>{
   const targetId = event.target.parentNode.id;
-  const pictureData = pictures.find((element) => element.id === Number(targetId));
+  const pictureData = arrayPhotos.find((element) => element.id === Number(targetId));
 
   if (event.target.classList[0] === 'picture__img'){
     openBigPicture();
-    fillBigPicture(pictureData);
+    FillBigPicture(pictureData);
     creatingCommentElements(pictureData);
     renderCommentsBigPicture();
   }
@@ -88,6 +91,8 @@ const onPicturesContainerClick = (event) =>{
 
 picturesContainer.addEventListener('click', onPicturesContainerClick);
 
-bigPictureBtnClose.addEventListener('click', onBigPictureBtnCloseClick);
+bigPictureButtonClose.addEventListener('click', onBigPictureButtonCloseClick);
 
 commentsLoader.addEventListener('click', renderCommentsBigPicture);
+
+export {getArrayPhotosPopup};
