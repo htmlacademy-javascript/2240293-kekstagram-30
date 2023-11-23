@@ -25,6 +25,16 @@ const getActiveElement = () => document.activeElement === comment ||
 
 const isErrorMessageExsits = () => Boolean(document.querySelector('.error'));
 
+const pristine = new Pristine(form, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorClass: 'img-upload__field-wrapper--error'
+});
+
+const pristineReset = () => {
+  pristine.reset();
+};
+
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt) && !getActiveElement() && !isErrorMessageExsits()) {
     evt.preventDefault();
@@ -32,6 +42,7 @@ const onDocumentKeydown = (evt) => {
     modalImageEditor.classList.add('hidden');
     inputUpload.value = null;
     form.reset();
+    pristineReset();
     imgPreview.style = 'none';
   }
 };
@@ -49,14 +60,9 @@ const onModalImageEditorButtonCloseClick = () => {
   inputUpload.value = null;
   form.reset();
   imgPreview.style = 'none';
+  pristineReset();
   document.removeEventListener('keydown', onDocumentKeydown);
 };
-
-const pristine = new Pristine(form, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorClass: 'img-upload__field-wrapper--error'
-});
 
 const validateComment = (value) => value.length <= MAX_COMMENT_LENGTH;
 
@@ -84,6 +90,7 @@ const checksValidityHashtag = () => {
 };
 
 const checksHashtagsForRepetition = () => {
+  pristineReset();
   const arrayHashtags = turnArrayHashtags();
   const newArrayHashtags = [];
   let result = true;
