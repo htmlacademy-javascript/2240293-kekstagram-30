@@ -157,9 +157,10 @@ const onEffectClick = (element) => {
   editingImgPreview(activeFilter);
 };
 
-for (let i = 0; i <= effects.length - 1; i++){
-  effects[i].addEventListener('click', onEffectClick);
-}
+effects.forEach ((element) => {
+  element.addEventListener('click', onEffectClick);
+});
+
 
 controlSmallerBtm.addEventListener('click', onControlSmallerBtmClick);
 controlBiggerBtm.addEventListener('click', onControlBiggerBtmClick);
