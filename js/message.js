@@ -14,7 +14,7 @@ const errorMessage = document
   .querySelector('.error');
 const REMOVE_MESSAGE_TIMEOUT = 5000;
 
-const showDataErroreMessage = () => {
+const showDataErrorMessage = () => {
   document.body.append (dataError);
   setTimeout (() => {
     dataError.remove();
@@ -29,24 +29,22 @@ const InformationMessageButtonClass = {
 const hideMessageForm = () => {
   const message = document.querySelector('.success') || document.querySelector('.error');
   message.remove();
-  // eslint-disable-next-line no-use-before-define
-  document.removeEventListener('keydown', onDocumentKeydown);// Функции взаимосвязаны и от перемены места ошибка линта не исчезнет, поэтому для 2х сток остановлена проверка
-  // eslint-disable-next-line no-use-before-define
-  document.removeEventListener('mousedown', onDocumentMousedown);// Функции взаимосвязаны и от перемены места ошибка линта не исчезнет, поэтому для 2х сток остановлена проверка
+  document.removeEventListener('keydown', onDocumentKeydown);// Функции взаимосвязаны и от перемены места ошибка линта не исчезнет, поэтому для 2х  функций  изменен способ обьявления
+  document.removeEventListener('mousedown', onDocumentMousedown);// Функции взаимосвязаны и от перемены места ошибка линта не исчезнет, поэтому для 2х функций  изменен способ обьявления
 };
 
-const onDocumentMousedown = (evt) => {
+function onDocumentMousedown(evt) {
   if (evt.target.className === 'success' || evt.target.className === 'error') {
     hideMessageForm();
   }
-};
+}
 
-const onDocumentKeydown = (evt) => {
+function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     hideMessageForm();
   }
-};
+}
 
 const onMessageButtonCloseClick = () => {
   hideMessageForm();
@@ -68,4 +66,4 @@ const showErrorMessageForm = () => {
 };
 
 
-export {showDataErroreMessage, showSuccessMessageForm, showErrorMessageForm};
+export {showDataErrorMessage, showSuccessMessageForm, showErrorMessageForm};

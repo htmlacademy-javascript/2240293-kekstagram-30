@@ -61,15 +61,13 @@ const sortUserImages = (target) => {
   }
 };
 
+imgFiltersForm.addEventListener('mouseup', ({target}) => {
+  filtersButton.forEach((element) => element.classList.remove('img-filters__button--active'));
+  target.classList.add('img-filters__button--active');
+});
+
 const setfilterButtonClick = (cb) => {
-  imgFiltersForm.addEventListener('click', (evt) => {
-    const target = evt.target;
-    for (let i = 0; i <= filtersButton.length - 1; i++) {
-      filtersButton[i].classList.remove('img-filters__button--active');
-    }
-    target.classList.add('img-filters__button--active');
-    cb(target);
-  }
-  );
+  imgFiltersForm.addEventListener('click', ({target}) => cb(target));
 };
+
 export {showImgFiltersSection, setfilterButtonClick, sortUserImages, getArrayPhotosFilter};
