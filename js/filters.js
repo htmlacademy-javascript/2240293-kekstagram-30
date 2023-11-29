@@ -1,11 +1,13 @@
 import { getRandomInteger} from './util.js';
 import {renderPictures} from './miniature.js';
+
+const NUMBER_RANDOM_PHOTOS = 10;
+const MAX_ID_RANDOM_PHOTOS = 24;
+
 const pictureList = document.querySelector('.pictures');
 const imgFiltersSection = document.querySelector('.img-filters');
 const imgFiltersForm = document.querySelector('.img-filters__form');
 const filtersButton = imgFiltersSection.querySelectorAll('.img-filters__button');
-const NUMBER_RANDOM_PHOTOS = 10;
-const MAX_ID_RANDOM_PHOTOS = 24;
 
 let arrayPhotos = [];
 
@@ -66,8 +68,8 @@ imgFiltersForm.addEventListener('mouseup', ({target}) => {
   target.classList.add('img-filters__button--active');
 });
 
-const setfilterButtonClick = (cb) => {
-  imgFiltersForm.addEventListener('click', ({target}) => cb(target));
+const setfilterButtonClick = (сallback) => {
+  imgFiltersForm.addEventListener('click', ({target}) => сallback(target));
 };
 
 export {showImgFiltersSection, setfilterButtonClick, sortUserImages, getArrayPhotosFilter};
