@@ -38,8 +38,8 @@ const EFFECTS_SLIDER_SETTINGS = [
   }
 ];
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
-const controlSmallerBtm = document.querySelector('.scale__control--smaller');
-const controlBiggerBtm = document.querySelector('.scale__control--bigger');
+const controlSmallerButton = document.querySelector('.scale__control--smaller');
+const controlBiggerButton = document.querySelector('.scale__control--bigger');
 const controlValue = document.querySelector('.scale__control--value');
 const imgPreview = document.querySelector('.img-upload__preview');
 const effectLevelValue = document.querySelector('.effect-level__value');
@@ -70,14 +70,14 @@ const onControlValueChange = () => {
   imgPreview.querySelector('img').style.transform = `scale(${parseInt(controlValue.value, 10) / 100})`;
 };
 
-const onControlSmallerBtmClick = () => {
+const onControlSmallerButtonClick = () => {
   if (MIN_CONTROL_VALUE < parseInt(controlValue.value, 10)) {
     controlValue.value = `${parseInt(controlValue.value, 10) - 25}%`;
     onControlValueChange();
   }
 };
 
-const onControlBiggerBtmClick = () => {
+const onControlBiggerButtonClick = () => {
   if (parseInt(controlValue.value, 10) < MAX_CONTROL_VALUE) {
     controlValue.value = `${parseInt(controlValue.value, 10) + 25}%`;
     onControlValueChange();
@@ -161,5 +161,5 @@ effects.forEach ((element) => {
   element.addEventListener('click', onEffectClick);
 });
 
-controlSmallerBtm.addEventListener('click', onControlSmallerBtmClick);
-controlBiggerBtm.addEventListener('click', onControlBiggerBtmClick);
+controlSmallerButton.addEventListener('click', onControlSmallerButtonClick);
+controlBiggerButton.addEventListener('click', onControlBiggerButtonClick);

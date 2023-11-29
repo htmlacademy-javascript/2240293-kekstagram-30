@@ -1,7 +1,7 @@
 const pictureList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const CreatePicture = ({id, url, description, comments, likes}) => {
+const createPicture = ({id, url, description, comments, likes}) => {
   const pictureElement = pictureTemplate.cloneNode(true);
   pictureElement.querySelector('.picture__img').src = url;
   pictureElement.querySelector('.picture__img').alt = description;
@@ -15,7 +15,7 @@ const CreatePicture = ({id, url, description, comments, likes}) => {
 const renderPictures = (photos) => {
   const pictureListFragment = document.createDocumentFragment();
   photos.forEach((picture) => {
-    const pictureElement = CreatePicture(picture);
+    const pictureElement = createPicture(picture);
     pictureListFragment.appendChild(pictureElement);
   });
   pictureList.appendChild(pictureListFragment);

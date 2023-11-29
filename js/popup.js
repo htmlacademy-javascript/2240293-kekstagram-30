@@ -53,7 +53,7 @@ const createCommentsElements = (pictureData) => {
   });
 };
 
-const FillBigPicture = ({url, likes, description, comments}) => {
+const fillBigPicture = ({url, likes, description, comments}) => {
   bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
   bigPicture.querySelector('.likes-count').textContent = likes;
   bigPicture.querySelector('.social__caption').textContent = description;
@@ -83,7 +83,7 @@ const onPicturesContainerClick = (event) =>{
 
   if (event.target.classList[0] === 'picture__img'){
     openBigPicture();
-    FillBigPicture(pictureData);
+    fillBigPicture(pictureData);
     createCommentsElements(pictureData);
     renderCommentsBigPicture();
   }
