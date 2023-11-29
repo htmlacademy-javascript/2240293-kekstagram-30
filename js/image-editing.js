@@ -1,17 +1,5 @@
-const controlSmallerBtm = document.querySelector('.scale__control--smaller');
-const controlBiggerBtm = document.querySelector('.scale__control--bigger');
-const controlValue = document.querySelector('.scale__control--value');
-const imgPreview = document.querySelector('.img-upload__preview');
-const effectLevelValue = document.querySelector('.effect-level__value');
-const effectLevelSlider = document.querySelector('.effect-level__slider');
-const effects = document.querySelectorAll('.effects__radio');
-const effectLevelSliderContainer = document.querySelector('.img-upload__effect-level');
-const inputUpload = document.querySelector('.img-upload__input');
-const effectsPreview = document.querySelectorAll('.effects__preview');
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const MIN_CONTROL_VALUE = 25;
 const MAX_CONTROL_VALUE = 100;
-let activeFilter = null;
 const EFFECTS_SLIDER_SETTINGS = [
   {
     id: 'effect-chrome',
@@ -49,8 +37,21 @@ const EFFECTS_SLIDER_SETTINGS = [
     filter: 'brightness'
   }
 ];
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const controlSmallerBtm = document.querySelector('.scale__control--smaller');
+const controlBiggerBtm = document.querySelector('.scale__control--bigger');
+const controlValue = document.querySelector('.scale__control--value');
+const imgPreview = document.querySelector('.img-upload__preview');
+const effectLevelValue = document.querySelector('.effect-level__value');
+const effectLevelSlider = document.querySelector('.effect-level__slider');
+const effects = document.querySelectorAll('.effects__radio');
+const effectLevelSliderContainer = document.querySelector('.img-upload__effect-level');
+const inputUpload = document.querySelector('.img-upload__input');
+const effectsPreview = document.querySelectorAll('.effects__preview');
 
-const changeInputUpload = () => {
+let activeFilter = null;
+
+const onInputUploadChange = () => {
   const file = inputUpload.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
@@ -63,23 +64,23 @@ const changeInputUpload = () => {
   }
 };
 
-inputUpload.addEventListener('change', changeInputUpload);
+inputUpload.addEventListener('change', onInputUploadChange);
 
-const onСhangeControlValue = () => {
+const onControlValueChange = () => {
   imgPreview.querySelector('img').style.transform = `scale(${parseInt(controlValue.value, 10) / 100})`;
 };
 
 const onControlSmallerBtmClick = () => {
   if (MIN_CONTROL_VALUE < parseInt(controlValue.value, 10)) {
     controlValue.value = `${parseInt(controlValue.value, 10) - 25}%`;
-    onСhangeControlValue();
+    onControlValueChange();
   }
 };
 
 const onControlBiggerBtmClick = () => {
   if (parseInt(controlValue.value, 10) < MAX_CONTROL_VALUE) {
     controlValue.value = `${parseInt(controlValue.value, 10) + 25}%`;
-    onСhangeControlValue();
+    onControlValueChange();
   }
 };
 
@@ -120,7 +121,7 @@ const createEfectSetting = (element) => {
   return EFFECTS_SLIDER_SETTINGS.find((effect) => effect.id === targetId);
 };
 
-const editingImgPreview = (filter) => {
+const editImgPreview = (filter) => {
   if (!filter) {
     return;
   }
@@ -130,9 +131,8 @@ const editingImgPreview = (filter) => {
 
 effectLevelSlider.noUiSlider.on('update', () => {
   effectLevelValue.value = effectLevelSlider.noUiSlider.get();
-  editingImgPreview(activeFilter);
+  editImgPreview(activeFilter);
 });
-
 
 const onEffectClick = (element) => {
   if (element.target.id === 'effect-none') {
@@ -154,13 +154,12 @@ const onEffectClick = (element) => {
     start: Number(activeFilter.max)
   });
 
-  editingImgPreview(activeFilter);
+  editImgPreview(activeFilter);
 };
 
 effects.forEach ((element) => {
   element.addEventListener('click', onEffectClick);
 });
-
 
 controlSmallerBtm.addEventListener('click', onControlSmallerBtmClick);
 controlBiggerBtm.addEventListener('click', onControlBiggerBtmClick);

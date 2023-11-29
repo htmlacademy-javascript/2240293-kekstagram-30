@@ -1,5 +1,11 @@
 import {isEscapeKey} from './util.js';
 
+const REMOVE_MESSAGE_TIMEOUT = 5000;
+const InformationMessageButtonClass = {
+  SUCCESS: '.success__button',
+  ERROR: '.error__button'
+};
+
 const dataError = document
   .querySelector('#data-error')
   .content
@@ -12,18 +18,12 @@ const errorMessage = document
   .querySelector('#error')
   .content
   .querySelector('.error');
-const REMOVE_MESSAGE_TIMEOUT = 5000;
 
 const showDataErrorMessage = () => {
   document.body.append (dataError);
   setTimeout (() => {
     dataError.remove();
   }, REMOVE_MESSAGE_TIMEOUT);
-};
-
-const InformationMessageButtonClass = {
-  SUCCESS: '.success__button',
-  ERROR: '.error__button'
 };
 
 const hideMessageForm = () => {
@@ -64,6 +64,5 @@ const showSuccessMessageForm = () => {
 const showErrorMessageForm = () => {
   showMessageForm(errorMessage, InformationMessageButtonClass.ERROR);
 };
-
 
 export {showDataErrorMessage, showSuccessMessageForm, showErrorMessageForm};
